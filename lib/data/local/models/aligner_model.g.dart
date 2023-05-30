@@ -30,7 +30,7 @@ const AlignerModelSchema = CollectionSchema(
     r'notes': PropertySchema(
       id: 2,
       name: r'notes',
-      type: IsarType.string,
+      type: IsarType.stringList,
     ),
     r'number': PropertySchema(
       id: 3,
@@ -69,9 +69,15 @@ int _alignerModelEstimateSize(
 ) {
   var bytesCount = offsets.last;
   {
-    final value = object.notes;
-    if (value != null) {
-      bytesCount += 3 + value.length * 3;
+    final list = object.notes;
+    if (list != null) {
+      bytesCount += 3 + list.length * 3;
+      {
+        for (var i = 0; i < list.length; i++) {
+          final value = list[i];
+          bytesCount += value.length * 3;
+        }
+      }
     }
   }
   return bytesCount;
@@ -85,7 +91,7 @@ void _alignerModelSerialize(
 ) {
   writer.writeBool(offsets[0], object.current);
   writer.writeLong(offsets[1], object.invisalingId);
-  writer.writeString(offsets[2], object.notes);
+  writer.writeStringList(offsets[2], object.notes);
   writer.writeLong(offsets[3], object.number);
   writer.writeLong(offsets[4], object.numberOfDays);
   writer.writeDateTime(offsets[5], object.start);
@@ -101,7 +107,7 @@ AlignerModel _alignerModelDeserialize(
   object.current = reader.readBoolOrNull(offsets[0]);
   object.id = id;
   object.invisalingId = reader.readLongOrNull(offsets[1]);
-  object.notes = reader.readStringOrNull(offsets[2]);
+  object.notes = reader.readStringList(offsets[2]);
   object.number = reader.readLongOrNull(offsets[3]);
   object.numberOfDays = reader.readLongOrNull(offsets[4]);
   object.start = reader.readDateTimeOrNull(offsets[5]);
@@ -120,7 +126,7 @@ P _alignerModelDeserializeProp<P>(
     case 1:
       return (reader.readLongOrNull(offset)) as P;
     case 2:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readStringList(offset)) as P;
     case 3:
       return (reader.readLongOrNull(offset)) as P;
     case 4:
@@ -399,8 +405,9 @@ extension AlignerModelQueryFilter
     });
   }
 
-  QueryBuilder<AlignerModel, AlignerModel, QAfterFilterCondition> notesEqualTo(
-    String? value, {
+  QueryBuilder<AlignerModel, AlignerModel, QAfterFilterCondition>
+      notesElementEqualTo(
+    String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -413,8 +420,8 @@ extension AlignerModelQueryFilter
   }
 
   QueryBuilder<AlignerModel, AlignerModel, QAfterFilterCondition>
-      notesGreaterThan(
-    String? value, {
+      notesElementGreaterThan(
+    String value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -428,8 +435,9 @@ extension AlignerModelQueryFilter
     });
   }
 
-  QueryBuilder<AlignerModel, AlignerModel, QAfterFilterCondition> notesLessThan(
-    String? value, {
+  QueryBuilder<AlignerModel, AlignerModel, QAfterFilterCondition>
+      notesElementLessThan(
+    String value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -443,9 +451,10 @@ extension AlignerModelQueryFilter
     });
   }
 
-  QueryBuilder<AlignerModel, AlignerModel, QAfterFilterCondition> notesBetween(
-    String? lower,
-    String? upper, {
+  QueryBuilder<AlignerModel, AlignerModel, QAfterFilterCondition>
+      notesElementBetween(
+    String lower,
+    String upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -463,7 +472,7 @@ extension AlignerModelQueryFilter
   }
 
   QueryBuilder<AlignerModel, AlignerModel, QAfterFilterCondition>
-      notesStartsWith(
+      notesElementStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -476,7 +485,8 @@ extension AlignerModelQueryFilter
     });
   }
 
-  QueryBuilder<AlignerModel, AlignerModel, QAfterFilterCondition> notesEndsWith(
+  QueryBuilder<AlignerModel, AlignerModel, QAfterFilterCondition>
+      notesElementEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -489,9 +499,8 @@ extension AlignerModelQueryFilter
     });
   }
 
-  QueryBuilder<AlignerModel, AlignerModel, QAfterFilterCondition> notesContains(
-      String value,
-      {bool caseSensitive = true}) {
+  QueryBuilder<AlignerModel, AlignerModel, QAfterFilterCondition>
+      notesElementContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
         property: r'notes',
@@ -501,9 +510,8 @@ extension AlignerModelQueryFilter
     });
   }
 
-  QueryBuilder<AlignerModel, AlignerModel, QAfterFilterCondition> notesMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
+  QueryBuilder<AlignerModel, AlignerModel, QAfterFilterCondition>
+      notesElementMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
         property: r'notes',
@@ -514,7 +522,7 @@ extension AlignerModelQueryFilter
   }
 
   QueryBuilder<AlignerModel, AlignerModel, QAfterFilterCondition>
-      notesIsEmpty() {
+      notesElementIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'notes',
@@ -524,12 +532,101 @@ extension AlignerModelQueryFilter
   }
 
   QueryBuilder<AlignerModel, AlignerModel, QAfterFilterCondition>
-      notesIsNotEmpty() {
+      notesElementIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'notes',
         value: '',
       ));
+    });
+  }
+
+  QueryBuilder<AlignerModel, AlignerModel, QAfterFilterCondition>
+      notesLengthEqualTo(int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'notes',
+        length,
+        true,
+        length,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<AlignerModel, AlignerModel, QAfterFilterCondition>
+      notesIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'notes',
+        0,
+        true,
+        0,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<AlignerModel, AlignerModel, QAfterFilterCondition>
+      notesIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'notes',
+        0,
+        false,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<AlignerModel, AlignerModel, QAfterFilterCondition>
+      notesLengthLessThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'notes',
+        0,
+        true,
+        length,
+        include,
+      );
+    });
+  }
+
+  QueryBuilder<AlignerModel, AlignerModel, QAfterFilterCondition>
+      notesLengthGreaterThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'notes',
+        length,
+        include,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<AlignerModel, AlignerModel, QAfterFilterCondition>
+      notesLengthBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'notes',
+        lower,
+        includeLower,
+        upper,
+        includeUpper,
+      );
     });
   }
 
@@ -786,18 +883,6 @@ extension AlignerModelQuerySortBy
     });
   }
 
-  QueryBuilder<AlignerModel, AlignerModel, QAfterSortBy> sortByNotes() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'notes', Sort.asc);
-    });
-  }
-
-  QueryBuilder<AlignerModel, AlignerModel, QAfterSortBy> sortByNotesDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'notes', Sort.desc);
-    });
-  }
-
   QueryBuilder<AlignerModel, AlignerModel, QAfterSortBy> sortByNumber() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'number', Sort.asc);
@@ -875,18 +960,6 @@ extension AlignerModelQuerySortThenBy
     });
   }
 
-  QueryBuilder<AlignerModel, AlignerModel, QAfterSortBy> thenByNotes() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'notes', Sort.asc);
-    });
-  }
-
-  QueryBuilder<AlignerModel, AlignerModel, QAfterSortBy> thenByNotesDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'notes', Sort.desc);
-    });
-  }
-
   QueryBuilder<AlignerModel, AlignerModel, QAfterSortBy> thenByNumber() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'number', Sort.asc);
@@ -939,10 +1012,9 @@ extension AlignerModelQueryWhereDistinct
     });
   }
 
-  QueryBuilder<AlignerModel, AlignerModel, QDistinct> distinctByNotes(
-      {bool caseSensitive = true}) {
+  QueryBuilder<AlignerModel, AlignerModel, QDistinct> distinctByNotes() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'notes', caseSensitive: caseSensitive);
+      return query.addDistinctBy(r'notes');
     });
   }
 
@@ -985,7 +1057,7 @@ extension AlignerModelQueryProperty
     });
   }
 
-  QueryBuilder<AlignerModel, String?, QQueryOperations> notesProperty() {
+  QueryBuilder<AlignerModel, List<String>?, QQueryOperations> notesProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'notes');
     });

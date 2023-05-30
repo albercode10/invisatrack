@@ -2,14 +2,7 @@ import 'package:invisatrack/data/local/models/aligner_model.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 
-class DbHelper {
-  static final DbHelper _dbHelper = DbHelper._internal();
-
-  DbHelper._internal();
-
-  factory DbHelper() {
-    return _dbHelper;
-  }
+mixin DbHelper {
 
   Future<Isar> openDB() async {
     if (Isar.instanceNames.isEmpty) {
