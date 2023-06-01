@@ -1,4 +1,4 @@
-import 'package:invisatrack/domain/entities/aligner.dart';
+import 'package:invisatrack/features/aligners/domain/entities/aligner.dart';
 
 abstract class AlignerRepository {
   Future<List<Aligner>> getAll();
@@ -10,6 +10,4 @@ abstract class AlignerRepository {
   Future<void> updateAligner(Aligner aligner);
 
   Future<void> deleteAligner(int id);
-
 }
-

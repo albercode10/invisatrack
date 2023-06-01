@@ -1,6 +1,7 @@
-import 'package:invisatrack/data/local/models/aligner_model.dart';
+import 'package:invisatrack/features/aligners/data/local/models/aligner_model.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
+
 
 mixin DbHelper {
 

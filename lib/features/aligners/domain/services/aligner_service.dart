@@ -1,6 +1,6 @@
-import 'package:invisatrack/data/local/repositories/aligner_local_repository.dart';
-import 'package:invisatrack/domain/entities/aligner.dart';
-import 'package:invisatrack/domain/repositories/aligner_repository.dart';
+import 'package:invisatrack/features/aligners/data/local/repositories/aligner_local_repository.dart';
+import 'package:invisatrack/features/aligners/domain/entities/aligner.dart';
+import 'package:invisatrack/features/aligners/domain/repositories/aligner_repository.dart';
 
 class AlignerService implements AlignerRepository {
   final AlignerLocalRepository alignerLocalRepository;

@@ -1,4 +1,4 @@
-import 'package:invisatrack/domain/entities/aligner.dart';
+import 'package:invisatrack/features/aligners/domain/entities/aligner.dart';
 import 'package:isar/isar.dart';
 
 part 'aligner_model.g.dart';

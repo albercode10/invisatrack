@@ -1,7 +1,8 @@
-import 'package:invisatrack/data/local/core/dbhelper.dart';
-import 'package:invisatrack/data/local/models/aligner_model.dart';
-import 'package:invisatrack/domain/entities/aligner.dart';
-import 'package:invisatrack/domain/repositories/aligner_repository.dart';
+
+import 'package:invisatrack/core/data/local/dbhelper.dart';
+import 'package:invisatrack/features/aligners/data/local/models/aligner_model.dart';
+import 'package:invisatrack/features/aligners/domain/entities/aligner.dart';
+import 'package:invisatrack/features/aligners/domain/repositories/aligner_repository.dart';
 import 'package:isar/isar.dart';
 
 class AlignerLocalRepository with DbHelper implements AlignerRepository {
@@ -14,7 +15,7 @@ class AlignerLocalRepository with DbHelper implements AlignerRepository {
   @override
   Future<List<Aligner>> getAll() async {
     final isar = await db;
-    final alignerModels = await isar.alignerModels.where().findAll();
+    final alignerModels = await isar.alignerModels.where().sortByNumber().findAll();
     return alignerModels
         .map((alignerModel) => alignerModel.toAligner())
         .toList();
