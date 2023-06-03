@@ -1,10 +1,26 @@
 part of 'aligner_bloc.dart';
 
-sealed class AlignerState extends Equatable {
-  const AlignerState();
-}
+enum AlignerStatus { initial, loading, success, failure }
 
-final class AlignerInitial extends AlignerState {
+final class AlignersState extends Equatable {
+  const AlignersState({
+    this.status = AlignerStatus.initial,
+    this.aligners = const <Aligner>[],
+  });
+
+  final AlignerStatus status;
+  final List<Aligner> aligners;
+
   @override
-  List<Object> get props => [];
+  List<Object> get props => [status, aligners];
+
+  AlignersState copyWith({
+    AlignerStatus? status,
+    List<Aligner>? aligners,
+  }) {
+    return AlignersState(
+      status: status ?? this.status,
+      aligners: aligners ?? this.aligners,
+    );
+  }
 }
