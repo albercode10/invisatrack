@@ -2,20 +2,20 @@ import 'package:equatable/equatable.dart';
 
 class Aligner extends Equatable {
    final int? id;
-   final int? number;
-   final bool? current;
+   final int number;
+   final bool current;
+   final int numberOfDays;
+   final DateTime start;
    final int? invisalingId;
-   final int? numberOfDays;
-   final DateTime? start;
    final List<String>? notes;
 
   const Aligner({
     this.id,
-    this.number,
-    this.current,
+    required this.number,
+    required this.current,
+    required this.numberOfDays,
+    required this.start,
     this.invisalingId,
-    this.numberOfDays,
-    this.start,
     this.notes,
   });
 

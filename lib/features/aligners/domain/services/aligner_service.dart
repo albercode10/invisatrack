@@ -5,7 +5,7 @@ import 'package:invisatrack/features/aligners/domain/repositories/aligner_reposi
 class AlignerService implements AlignerRepository {
   final AlignerLocalRepository alignerLocalRepository;
 
-  AlignerService({required this.alignerLocalRepository});
+  AlignerService() : alignerLocalRepository = AlignerLocalRepository();
 
   @override
   Future<List<Aligner>> getAll() {

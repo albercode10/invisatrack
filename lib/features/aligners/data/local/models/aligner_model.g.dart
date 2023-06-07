@@ -104,13 +104,13 @@ AlignerModel _alignerModelDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = AlignerModel();
-  object.current = reader.readBoolOrNull(offsets[0]);
+  object.current = reader.readBool(offsets[0]);
   object.id = id;
   object.invisalingId = reader.readLongOrNull(offsets[1]);
   object.notes = reader.readStringList(offsets[2]);
-  object.number = reader.readLongOrNull(offsets[3]);
-  object.numberOfDays = reader.readLongOrNull(offsets[4]);
-  object.start = reader.readDateTimeOrNull(offsets[5]);
+  object.number = reader.readLong(offsets[3]);
+  object.numberOfDays = reader.readLong(offsets[4]);
+  object.start = reader.readDateTime(offsets[5]);
   return object;
 }
 
@@ -122,17 +122,17 @@ P _alignerModelDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readBoolOrNull(offset)) as P;
+      return (reader.readBool(offset)) as P;
     case 1:
       return (reader.readLongOrNull(offset)) as P;
     case 2:
       return (reader.readStringList(offset)) as P;
     case 3:
-      return (reader.readLongOrNull(offset)) as P;
+      return (reader.readLong(offset)) as P;
     case 4:
-      return (reader.readLongOrNull(offset)) as P;
+      return (reader.readLong(offset)) as P;
     case 5:
-      return (reader.readDateTimeOrNull(offset)) as P;
+      return (reader.readDateTime(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -233,25 +233,7 @@ extension AlignerModelQueryWhere
 extension AlignerModelQueryFilter
     on QueryBuilder<AlignerModel, AlignerModel, QFilterCondition> {
   QueryBuilder<AlignerModel, AlignerModel, QAfterFilterCondition>
-      currentIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'current',
-      ));
-    });
-  }
-
-  QueryBuilder<AlignerModel, AlignerModel, QAfterFilterCondition>
-      currentIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'current',
-      ));
-    });
-  }
-
-  QueryBuilder<AlignerModel, AlignerModel, QAfterFilterCondition>
-      currentEqualTo(bool? value) {
+      currentEqualTo(bool value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'current',
@@ -630,26 +612,8 @@ extension AlignerModelQueryFilter
     });
   }
 
-  QueryBuilder<AlignerModel, AlignerModel, QAfterFilterCondition>
-      numberIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'number',
-      ));
-    });
-  }
-
-  QueryBuilder<AlignerModel, AlignerModel, QAfterFilterCondition>
-      numberIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'number',
-      ));
-    });
-  }
-
   QueryBuilder<AlignerModel, AlignerModel, QAfterFilterCondition> numberEqualTo(
-      int? value) {
+      int value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'number',
@@ -660,7 +624,7 @@ extension AlignerModelQueryFilter
 
   QueryBuilder<AlignerModel, AlignerModel, QAfterFilterCondition>
       numberGreaterThan(
-    int? value, {
+    int value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -674,7 +638,7 @@ extension AlignerModelQueryFilter
 
   QueryBuilder<AlignerModel, AlignerModel, QAfterFilterCondition>
       numberLessThan(
-    int? value, {
+    int value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -687,8 +651,8 @@ extension AlignerModelQueryFilter
   }
 
   QueryBuilder<AlignerModel, AlignerModel, QAfterFilterCondition> numberBetween(
-    int? lower,
-    int? upper, {
+    int lower,
+    int upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -704,25 +668,7 @@ extension AlignerModelQueryFilter
   }
 
   QueryBuilder<AlignerModel, AlignerModel, QAfterFilterCondition>
-      numberOfDaysIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'numberOfDays',
-      ));
-    });
-  }
-
-  QueryBuilder<AlignerModel, AlignerModel, QAfterFilterCondition>
-      numberOfDaysIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'numberOfDays',
-      ));
-    });
-  }
-
-  QueryBuilder<AlignerModel, AlignerModel, QAfterFilterCondition>
-      numberOfDaysEqualTo(int? value) {
+      numberOfDaysEqualTo(int value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'numberOfDays',
@@ -733,7 +679,7 @@ extension AlignerModelQueryFilter
 
   QueryBuilder<AlignerModel, AlignerModel, QAfterFilterCondition>
       numberOfDaysGreaterThan(
-    int? value, {
+    int value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -747,7 +693,7 @@ extension AlignerModelQueryFilter
 
   QueryBuilder<AlignerModel, AlignerModel, QAfterFilterCondition>
       numberOfDaysLessThan(
-    int? value, {
+    int value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -761,8 +707,8 @@ extension AlignerModelQueryFilter
 
   QueryBuilder<AlignerModel, AlignerModel, QAfterFilterCondition>
       numberOfDaysBetween(
-    int? lower,
-    int? upper, {
+    int lower,
+    int upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -777,26 +723,8 @@ extension AlignerModelQueryFilter
     });
   }
 
-  QueryBuilder<AlignerModel, AlignerModel, QAfterFilterCondition>
-      startIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'start',
-      ));
-    });
-  }
-
-  QueryBuilder<AlignerModel, AlignerModel, QAfterFilterCondition>
-      startIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'start',
-      ));
-    });
-  }
-
   QueryBuilder<AlignerModel, AlignerModel, QAfterFilterCondition> startEqualTo(
-      DateTime? value) {
+      DateTime value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'start',
@@ -807,7 +735,7 @@ extension AlignerModelQueryFilter
 
   QueryBuilder<AlignerModel, AlignerModel, QAfterFilterCondition>
       startGreaterThan(
-    DateTime? value, {
+    DateTime value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -820,7 +748,7 @@ extension AlignerModelQueryFilter
   }
 
   QueryBuilder<AlignerModel, AlignerModel, QAfterFilterCondition> startLessThan(
-    DateTime? value, {
+    DateTime value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -833,8 +761,8 @@ extension AlignerModelQueryFilter
   }
 
   QueryBuilder<AlignerModel, AlignerModel, QAfterFilterCondition> startBetween(
-    DateTime? lower,
-    DateTime? upper, {
+    DateTime lower,
+    DateTime upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -1045,7 +973,7 @@ extension AlignerModelQueryProperty
     });
   }
 
-  QueryBuilder<AlignerModel, bool?, QQueryOperations> currentProperty() {
+  QueryBuilder<AlignerModel, bool, QQueryOperations> currentProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'current');
     });
@@ -1063,19 +991,19 @@ extension AlignerModelQueryProperty
     });
   }
 
-  QueryBuilder<AlignerModel, int?, QQueryOperations> numberProperty() {
+  QueryBuilder<AlignerModel, int, QQueryOperations> numberProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'number');
     });
   }
 
-  QueryBuilder<AlignerModel, int?, QQueryOperations> numberOfDaysProperty() {
+  QueryBuilder<AlignerModel, int, QQueryOperations> numberOfDaysProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'numberOfDays');
     });
   }
 
-  QueryBuilder<AlignerModel, DateTime?, QQueryOperations> startProperty() {
+  QueryBuilder<AlignerModel, DateTime, QQueryOperations> startProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'start');
     });
