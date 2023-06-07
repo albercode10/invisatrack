@@ -16,27 +16,6 @@ class AlignerLocalRepository with DbHelper implements AlignerRepository {
   Future<List<Aligner>> getAll() async {
     final isar = await db;
     final alignerModels = await isar.alignerModels.where().sortByNumber().findAll();
-    // TODO remove this mock up code
-    return  [
-       Aligner(
-        id: 1,
-        number: 2,
-        current: true,
-        invisalingId: 21,
-        numberOfDays: 10,
-        start: DateTime.parse('2020-07-20 20:18:04Z'),
-        notes: List.empty(),
-      ),
-      Aligner(
-        id: 1,
-        number: 2,
-        current: true,
-        invisalingId: 21,
-        numberOfDays: 10,
-        start: DateTime.parse('2020-08-20 20:18:04Z'),
-        notes: List.empty(),
-      )
-    ];
     return alignerModels
         .map((alignerModel) => alignerModel.toAligner())
         .toList();

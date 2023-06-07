@@ -22,7 +22,7 @@ class AlignersList extends StatelessWidget {
             padding: const EdgeInsets.all(8),
             itemCount: aligners.length,
             itemBuilder: (BuildContext context, int index) {
-              return AlignersListItem(aligners: aligners[index]);
+              return AlignersListItem(aligner: aligners[index]);
             },
           )
         : const AlignersListEmpty();

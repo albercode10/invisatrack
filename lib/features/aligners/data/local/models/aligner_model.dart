@@ -7,11 +7,11 @@ part 'aligner_model.g.dart';
 @Name('Aligner')
 class AlignerModel {
   Id id = Isar.autoIncrement;
-  int? number;
-  bool? current;
+  late int number;
+  late bool current;
+  late int numberOfDays;
+  late DateTime start;
   int? invisalingId;
-  int? numberOfDays;
-  DateTime? start;
   List<String>? notes;
 
   Aligner toAligner() => Aligner(
