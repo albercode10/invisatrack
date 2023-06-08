@@ -4,10 +4,10 @@ import 'package:invisatrack/core/presentation/mixin/aligner_mixin.dart';
 import 'package:invisatrack/core/presentation/widgets/list_item_subtitle.dart';
 import 'package:invisatrack/features/aligners/domain/entities/aligner.dart';
 
-class AlignersListItem extends StatelessWidget with AlignerMixin {
+class AlignerListItem extends StatelessWidget with AlignerMixin {
   final Aligner aligner;
 
-  const AlignersListItem({Key? key, required this.aligner}) : super(key: key);
+  const AlignerListItem({Key? key, required this.aligner}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

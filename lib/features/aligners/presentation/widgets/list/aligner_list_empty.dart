@@ -1,8 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
-class AlignersListEmpty extends StatelessWidget {
-  const AlignersListEmpty({Key? key}) : super(key: key);
+class AlignerListEmpty extends StatelessWidget {
+  const AlignerListEmpty({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
